@@ -1,9 +1,8 @@
-package com.demo.mybatis;
+package com.demo.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -27,7 +26,6 @@ import static com.sun.webpane.platform.ConfigManager.log;
 @Slf4j
 @EnableTransactionManagement
 @ComponentScan
-@MapperScan("com.demo.mapper")
 public class MybatisConfig {
     @Value("${spring.datasource.type}")
     private Class<?extends DataSource> dataSourceType;

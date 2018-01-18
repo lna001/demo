@@ -3,6 +3,7 @@ package com.demo.model;
 /**
  * Created by user on 2018/1/18.
  */
+
 public class SessionData {
     private Integer userCode;
     private String mobileNumber;

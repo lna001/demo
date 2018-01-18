@@ -25,13 +25,13 @@ import static com.sun.webpane.platform.ConfigManager.log;
 @Configuration
 @Slf4j
 @EnableTransactionManagement
-@ComponentScan
+@ComponentScan("com.demo.config")
 public class MybatisConfig {
     @Value("${spring.datasource.type}")
-    private Class<?extends DataSource> dataSourceType;
+    private static Class<?extends DataSource> dataSourceType;
 
 
-    @Bean(name="dataSource", destroyMethod = "close", initMethod="init")
+    @Bean(name="dataSource", destroyMethod = "close")
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
         log.info("-------------------- writeDataSource init ---------------------");
@@ -42,9 +42,9 @@ public class MybatisConfig {
     public SqlSessionFactory sqlSessionFactory() throws Exception{
         SqlSessionFactoryBean sqlSessionFactoryBean=new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource());
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.demo.model");
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.demo.config");
         PathMatchingResourcePatternResolver resolver=new PathMatchingResourcePatternResolver();
-        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:com/demo/mapper/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:com/demo/*"));
         sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
         return sqlSessionFactoryBean.getObject();
     }

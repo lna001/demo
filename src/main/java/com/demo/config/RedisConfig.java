@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -26,14 +27,15 @@ import java.lang.reflect.Method;
 @Configuration
 @EnableCaching
 @EnableRedisHttpSession  //开启spring session支持  实现session共享
+@ComponentScan("com.demo.config")
 public class RedisConfig  extends CachingConfigurerSupport {
 
     @Value("${spring.redis.host}")
-    private String host;
+    private static String host;
     @Value("${spring.redis.timeout}")
-    private int timeout;
+    private static int timeout;
     @Value("${spring.redis.port}")
-    private int port;
+    private static int port;
 
     private int expireTime = 60 * 60;
     /**
